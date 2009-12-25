@@ -1,0 +1,17 @@
+<!DOCTYPE dataset SYSTEM "dataset.dtd">
+<dataset>
+    <table name="item">
+        <column>id</column>
+        <column>name</column>
+
+        <row>
+            <value>1</value>
+            <value>Item 1</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>Item 2</value>
+        </row>
+    </table>
+</dataset>
+
