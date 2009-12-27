@@ -1,4 +1,4 @@
 db.driver   = org.h2.Driver
-db.url      = jdbc:h2:~/hello_test_db
+db.url      = jdbc:h2:~/hello_db
 db.user     = 
 db.password = 

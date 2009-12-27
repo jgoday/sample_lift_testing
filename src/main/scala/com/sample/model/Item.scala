@@ -9,6 +9,7 @@ class Item extends LongKeyedMapper[Item] with IdPK {
 
     object name extends MappedString(this, 100) {
         override def validations = valMinLen(1, "Must be not empty") _ ::
+                                   valUnique("Name must be unique") _ ::
                                    super.validations
     }
 }

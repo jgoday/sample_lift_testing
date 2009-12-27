@@ -33,7 +33,7 @@ class AdminItems {
 
                 <div>{content}</div>
             }
-            case _ => SHtml.link("index", () => ShowAddItem(1), <p>Crear</p>)
+            case _ => SHtml.link("index", () => ShowAddItem(1), <p>Add</p>)
         }
     }
 
@@ -69,14 +69,32 @@ class AdminItems {
 
 
     private def addItem(name: String): Any = {
-        try {
-            val item = new Item
-            item.name(name)
-            item.save
+        val item = new Item
+        item.name(name)
 
-            S.notice("Item saved correctly")
+        saveItem(item)
+    }
+
+    private def saveItem(id: Long, name: String): Any = {
+        val item = Item.find(id).open_!
+        item.name(name)
+
+        saveItem(item)
+    }
+
+    private def saveItem(item: Item): Any = {
+        try {
+            item.validate match {
+                case Nil => {
+                    item.save
+                    S.notice("Item saved")
+                }
+                case errors => {
+                    errors.foreach(e => S.error(e.toString))
+                }
+            }
         }
-        catch  {
+        catch {
             case e: Exception => {
                 S.error(e.getMessage)
                 S.redirectTo("/items/index")
@@ -96,22 +114,6 @@ class AdminItems {
                 case e: Exception => {
                     S.error(e.getMessage)
                 }
-            }
-        }
-    }
-
-    private def saveItem(id: Long, name: String): Any = {
-        try {
-            val item = Item.find(id).open_!
-            item.name(name)
-            item.save
-
-            S.notice("Item saved")
-        }
-        catch {
-            case e: Exception => {
-                S.error(e.getMessage)
-                S.redirectTo("/items/index")
             }
         }
     }
