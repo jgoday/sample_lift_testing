@@ -1,0 +1,15 @@
+<lift:surround with="default" at="content">
+    <ul>
+        <lift:adminItems.list>
+            <li>
+                <item:name />
+
+                <item:edit />
+                <item:remove />
+            </li>
+        </lift:adminItems.list>
+    </ul>
+
+    <lift:adminItems.showAddItem  form="POST" />
+    <lift:adminItems.showEditItem form="POST" />
+</lift:surround>
